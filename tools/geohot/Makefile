@@ -8,7 +8,7 @@ UNAME		:=	$(shell uname -s)
 CFLAGS		:=	$(DEBUGFLAGS) -O2
 CFLAGS		+=	$(INCLUDES)
 CXXFLAGS	:=	$(CFLAGS) -fno-rtti -fno-exceptions
-LDFLAGS		=	$(DEBUGFLAGS)
+LDFLAGS		=	$(DEBUGFLAGS) 
 
 ifeq ($(strip $(PS3DEV)),)
   ifeq ($(strip $(DEVKITPS3)),)
@@ -36,8 +36,9 @@ ifneq (,$(findstring Darwin,$(UNAME)))
 	SDK			:= /Developer/SDKs/MacOSX10.4u.sdk 
 	OSXCFLAGS	:= -mmacosx-version-min=10.4 -arch i386
 	OSXCXXFLAGS	:=	$(OSXCFLAGS)
+	CFLAGS		+= -I/usr/local/opt/gmp-i386/include -I/usr/local/opt/openssl-i386/include
 	CXXFLAGS	+=	-fvisibility=hidden
-	LDFLAGS		+= -mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz
+	LDFLAGS		+= -mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz -L/usr/local/opt/openssl-i386/lib -L /usr/local/opt/gmp-i386/lib
 endif
 
 ifneq (,$(findstring BSD,$(UNAME)))
